@@ -681,7 +681,7 @@ impl ButtonVariant {
             Self::Info => cx.theme().info,
             Self::Link => cx.theme().link,
             Self::Text => cx.theme().foreground,
-            Self::Custom(colors) => colors.color,
+            Self::Custom(colors) => colors.foreground,
         }
     }
 
@@ -804,9 +804,9 @@ impl ButtonVariant {
             }
             Self::Custom(colors) => {
                 if outline {
-                    colors.color.mix_oklab(cx.theme().transparent, 0.2)
+                    colors.hover.mix_oklab(cx.theme().transparent, 0.2)
                 } else {
-                    colors.color.mix_oklab(cx.theme().transparent, 0.3)
+                    colors.hover.mix_oklab(cx.theme().transparent, 0.3)
                 }
             }
             Self::Ghost => {

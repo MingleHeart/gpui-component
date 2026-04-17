@@ -580,7 +580,7 @@ impl DockArea {
         cx: &mut Context<Self>,
     ) {
         if let Some(ref mut bottom) = self.bottom_dock {
-            bottom.update(cx, |this, cx| {
+            bottom.update(cx, |this, _cx| {
                 this.set_bottom_closed_height(closed_height);
             });
         }
