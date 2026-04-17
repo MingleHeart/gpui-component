@@ -75,6 +75,9 @@ pub struct Dock {
     // Runtime state
     /// Whether the Dock is resizing
     resizing: bool,
+
+    //show bottom dock when it's closed, so user can click the toggle button to open it
+    pub(crate) bottom_dock_closed_height: Pixels,
 }
 
 impl Dock {
@@ -107,6 +110,7 @@ impl Dock {
             collapsible: true,
             size: px(200.0),
             resizing: false,
+            bottom_dock_closed_height: px(29.0),
         }
     }
 
@@ -134,6 +138,11 @@ impl Dock {
         Self::new(dock_area, DockPlacement::Right, window, cx)
     }
 
+    pub fn set_bottom_closed_height(mut self, hright: Pixels) -> Self {
+        self.bottom_dock_closed_height = hright;
+        self
+    }
+
     /// Update the Dock to be collapsible or not.
     ///
     /// And if the Dock is not collapsible, it will be open.
@@ -151,6 +160,7 @@ impl Dock {
         size: Pixels,
         panel: DockItem,
         open: bool,
+        bottom_dock_closed_height: Pixels,
         window: &mut Window,
         cx: &mut Context<Self>,
     ) -> Self {
@@ -180,6 +190,7 @@ impl Dock {
             size,
             collapsible: true,
             resizing: false,
+            bottom_dock_closed_height,
         }
     }
 
@@ -388,7 +399,7 @@ impl Render for Dock {
             })
             // Bottom Dock should keep the title bar, then user can click the Toggle button
             .when(!self.open && self.placement.is_bottom(), |this| {
-                this.h(px(29.))
+                this.h(self.bottom_dock_closed_height)
             })
             .map(|this| match &self.panel {
                 DockItem::Split { view, .. } => this.child(view.clone()),
