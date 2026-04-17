@@ -573,6 +573,19 @@ impl DockArea {
             }));
     }
 
+    pub fn set_bottom_closed_height(
+        &mut self,
+        closed_height: Pixels,
+        _: &mut Window,
+        cx: &mut Context<Self>,
+    ) {
+        if let Some(ref mut bottom) = self.bottom_dock {
+            bottom.update(cx, |this, cx| {
+                this.set_bottom_closed_height(closed_height);
+            });
+        }
+    }
+
     /// Set the panel style of the dock area.
     pub fn panel_style(mut self, style: PanelStyle) -> Self {
         self.panel_style = style;

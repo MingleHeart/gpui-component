@@ -138,9 +138,8 @@ impl Dock {
         Self::new(dock_area, DockPlacement::Right, window, cx)
     }
 
-    pub fn set_bottom_closed_height(mut self, hright: Pixels) -> Self {
+    pub fn set_bottom_closed_height(&mut self, hright: Pixels) {
         self.bottom_dock_closed_height = hright;
-        self
     }
 
     /// Update the Dock to be collapsible or not.
@@ -383,7 +382,7 @@ impl Dock {
 
 impl Render for Dock {
     fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl gpui::IntoElement {
-        if !self.open && !self.placement.is_bottom() {
+        if !self.open && (!self.placement.is_bottom() || self.bottom_dock_closed_height == px(0.)) {
             return div();
         }
 
