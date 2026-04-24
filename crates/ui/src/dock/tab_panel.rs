@@ -209,7 +209,7 @@ impl TabPanel {
         self.active_ix
     }
 
-    fn set_active_ix(&mut self, ix: usize, window: &mut Window, cx: &mut Context<Self>) {
+    pub fn set_active_ix(&mut self, ix: usize, window: &mut Window, cx: &mut Context<Self>) {
         if ix == self.active_ix {
             return;
         }
