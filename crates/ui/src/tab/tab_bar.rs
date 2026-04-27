@@ -424,9 +424,10 @@ impl RenderOnce for TabBar {
             .refine_style(&self.style)
             .when_some(self.prefix, |this, prefix| this.child(prefix))
             .child(
-                h_flex().id("tabs").flex_1().overflow_x_scroll().child(
+                h_flex().id("tabs").flex_1().child(
                     h_flex()
                         .id("tabs-inner")
+                        .overflow_x_scroll()
                         .when_some(self.scroll_handle, |this, scroll_handle| {
                             this.track_scroll(&scroll_handle)
                         })
